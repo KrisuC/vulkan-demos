@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(Vulkan REQUIRED)
 
+
 add_subdirectory(glfw-3.3/)
 include_directories(glfw-3.3/include)
 
@@ -16,3 +17,5 @@ target_link_libraries(vulkan-test2 Vulkan::Vulkan glfw)
 
 add_executable(vulkan-base main.cpp)
 target_link_libraries(vulkan-base Vulkan::Vulkan glfw)
+target_include_directories(vulkan-base PRIVATE ${PROJECT_SOURCE_DIR}/helloTriangle.hpp)
+
