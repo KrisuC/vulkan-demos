@@ -15,7 +15,7 @@ target_link_libraries(vulkan-test Vulkan::Vulkan)
 add_executable(vulkan-test2 test-glfwglm.cpp)
 target_link_libraries(vulkan-test2 Vulkan::Vulkan glfw)
 
-add_executable(vulkan-base main.cpp)
+add_executable(vulkan-base main.cpp HelloTriangle.cpp)
 target_link_libraries(vulkan-base Vulkan::Vulkan glfw)
-target_include_directories(vulkan-base PRIVATE ${PROJECT_SOURCE_DIR}/helloTriangle.hpp)
+target_include_directories(vulkan-base PRIVATE ${PROJECT_SOURCE_DIR}/HelloTriangle.hpp)
 

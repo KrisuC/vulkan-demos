@@ -1,5 +1,5 @@
 //#include "helloTriangle2.hpp"
-#include "helloTriangle.hpp"
+#include "HelloTriangle.hpp"
 
 int main() {
     HelloTriangleApplication app;
