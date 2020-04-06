@@ -48,6 +48,13 @@ struct QueueFamilyIndices {
 };
 
 
+struct SwapChainSupportDetails {
+    VkSurfaceCapabilitiesKHR capabilities;
+    std::vector<VkSurfaceFormatKHR> formats;
+    std::vector<VkPresentModeKHR> presentModes;
+};
+
+
 class HelloTriangleApplication {
 public:
     void Run() {
@@ -66,6 +73,9 @@ private:
         CreateSurface();
         PickPhysicalDevice();
         CreateLogicalDevice();
+        CreateSwapChain();
+        CreateImageViews();
+        CreateGraphicsPipeline();
     }
 
     void MainLoop() {
@@ -86,6 +96,12 @@ private:
 
     void CreateLogicalDevice();
 
+    void CreateSwapChain();
+
+    void CreateImageViews();
+
+    void CreateGraphicsPipeline();
+
     bool IsDeviceSuitable(VkPhysicalDevice physicalDevice);
 
     bool CheckDeviceExtensionSupport(VkPhysicalDevice physicalDevice);
@@ -94,6 +110,17 @@ private:
     QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice physicalDevice);
 
     bool CheckValidationLayerSupport();
+
+    SwapChainSupportDetails
+    QuerySwapChainSupport(VkPhysicalDevice physicalDevice);
+
+    VkSurfaceFormatKHR ChooseSwapSurfaceFormat(
+            const std::vector<VkSurfaceFormatKHR> &availableFormats);
+
+    VkPresentModeKHR ChooseSwapPresentMode(
+            const std::vector<VkPresentModeKHR> &availablePresentModes);
+
+    VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
 
     static std::vector<const char *> GetRequiredExtensions();
 
@@ -110,19 +137,24 @@ private:
 private:
     GLFWwindow *mWindow;
 
-    VkInstance mInstance;
+    VkInstance               mInstance;
     VkDebugUtilsMessengerEXT mDebugUtilsMessenger;
-    VkPhysicalDevice mPhysicalDevice = VK_NULL_HANDLE;
-    VkDevice mDevice;
-    VkQueue mGraphicsQueue;
-    VkQueue mPresentQueue;
-    VkSurfaceKHR mSurface;
+    VkPhysicalDevice         mPhysicalDevice = VK_NULL_HANDLE;
+    VkDevice                 mDevice;
+    VkQueue                  mGraphicsQueue;
+    VkQueue                  mPresentQueue;
+    VkSurfaceKHR             mSurface;
+    VkSwapchainKHR           mSwapChain;
+    std::vector<VkImage>     mSwapChainImages;
+    VkFormat                 mSwapChainImageFormat;
+    VkExtent2D               mSwapChainExtent;
+    std::vector<VkImageView> mSwapChainImageViews;
 
-    const std::vector<const char*> mValidationLayers {
+    const std::vector<const char *> mValidationLayers{
             "VK_LAYER_KHRONOS_validation"
     };
-    const std::vector<const char*> mDeviceExtensions {
-        VK_KHR_SWAPCHAIN_EXTENSION_NAME
+    const std::vector<const char *> mDeviceExtensions{
+            VK_KHR_SWAPCHAIN_EXTENSION_NAME
     };
 
     constexpr static const int WIDTH = 1280;
