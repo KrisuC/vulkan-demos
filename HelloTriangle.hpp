@@ -37,6 +37,7 @@ void proxyDestroyDebugUtilsMessengerEXT(VkInstance instance,
                                         VkDebugUtilsMessengerEXT debugUtilsMessengerExt,
                                         const VkAllocationCallbacks *pAllocator);
 
+std::vector<char> ReadFile(const std::string& filename);
 
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
@@ -101,6 +102,8 @@ private:
     void CreateImageViews();
 
     void CreateGraphicsPipeline();
+
+    VkShaderModule CreateShaderModule(const std::vector<char> &code);
 
     bool IsDeviceSuitable(VkPhysicalDevice physicalDevice);
 
